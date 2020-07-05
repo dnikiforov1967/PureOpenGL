@@ -7,6 +7,15 @@ XYZAxes::XYZAxes(glm::mat4 model) noexcept : BaseShape(model)
 
 void XYZAxes::prepare() noexcept
 {
+    float axes[36] = {
+        // positions         // colors
+        0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+       -0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.9f, 0.0f, 0.0f, 0.0f, 1.0f,
+        0.0f,-0.9f, 0.0f, 0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 2.9f, 1.0f, 1.0f, 0.0f,
+        0.0f, 0.0f,-2.9f, 1.0f, 1.0f, 0.0f
+    };
     ShaderController sc;
     shaderProgram = sc.allocateShaders(vertexShaderSource, fragmentShaderSource);
     int modelLoc = glGetUniformLocation(shaderProgram, "model");
@@ -20,11 +29,11 @@ void XYZAxes::prepare() noexcept
     glBindBuffer(GL_ARRAY_BUFFER, iVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(axes), axes, GL_STATIC_DRAW);
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // color attribute
-    //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-    //glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glEnableVertexAttribArray(1);
 }
 
 void XYZAxes::draw() noexcept {
