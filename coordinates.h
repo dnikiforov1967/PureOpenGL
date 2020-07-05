@@ -1,13 +1,9 @@
 #ifndef COORDINATES_H
 #define COORDINATES_H
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "baseshape.h"
 
-class XYZAxes
+class XYZAxes : protected BaseShape
 {
     float axes[18] = {
         // positions         // colors
@@ -20,24 +16,25 @@ class XYZAxes
     };
     const char *vertexShaderSource = "#version 330 core\n"
             "layout (location = 0) in vec3 aPos;\n"
-            "out vec3 ourColor;\n"
+            "layout (location = 1) in vec3 aColor;\n"
+            "out vec3 axColor;\n"
             "uniform mat4 model;\n"
             "void main()\n"
             "{\n"
             "gl_Position = model*vec4(aPos, 1.0f);\n"
+            "axColor = aColor;\n"
             "}\n\0";
     const char *fragmentShaderSource = "#version 330 core\n"
+        "in vec3 axColor;\n"
         "out vec4 FragColor;\n"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f,1.0f,1.0f, 1.0);\n"
+        "   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
         "}\n\0";
-    glm::mat4 model;
-    int shaderProgram;
 public:
     XYZAxes(glm::mat4 model = glm::mat4(1.0f)) noexcept;
-    void prepare() noexcept;
-    void draw() noexcept;
+    void prepare() noexcept override;
+    void draw() noexcept override;
 };
 
 #endif // COORDINATES_H
