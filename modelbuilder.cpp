@@ -5,19 +5,22 @@ ModelBuilder::ModelBuilder() noexcept : angleX(0.0f), angleY(0.0f), angleZ(0.0f)
 
 }
 
-void ModelBuilder::routeAroudX(float angle) noexcept
+ModelBuilder& ModelBuilder::routeAroudX(float angle) noexcept
 {
     angleX = angle;
+    return *this;
 }
 
-void ModelBuilder::routeAroudY(float angle) noexcept
+ModelBuilder& ModelBuilder::routeAroudY(float angle) noexcept
 {
     angleY = angle;
+    return *this;
 }
 
-void ModelBuilder::routeAroudZ(float angle) noexcept
+ModelBuilder& ModelBuilder::routeAroudZ(float angle) noexcept
 {
     angleZ = angle;
+    return *this;
 }
 
 glm::mat4 ModelBuilder::build() noexcept

@@ -9,9 +9,9 @@ class ModelBuilder
 {
 public:
     ModelBuilder() noexcept;
-    void routeAroudX(float angle) noexcept;
-    void routeAroudY(float angle) noexcept;
-    void routeAroudZ(float angle) noexcept;
+    ModelBuilder& routeAroudX(float angle) noexcept;
+    ModelBuilder& routeAroudY(float angle) noexcept;
+    ModelBuilder& routeAroudZ(float angle) noexcept;
     glm::mat4 build() noexcept;
 private:
     float angleX, angleY, angleZ;

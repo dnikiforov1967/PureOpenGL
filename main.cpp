@@ -75,9 +75,10 @@ int main()
 
 
     ModelBuilder modelBuilder;
-    modelBuilder.routeAroudX(-45.0f);
-    modelBuilder.routeAroudZ(-120.0f);
-    glm::mat4 model = modelBuilder.build();
+    glm::mat4 model = modelBuilder
+            .routeAroudX(-45.0f)
+            .routeAroudZ(-120.0f)
+            .build();
 
     //glm::mat4 model = glm::mat4(1.0f);
     //model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
