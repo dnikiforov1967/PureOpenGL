@@ -13,8 +13,8 @@ void XYZAxes::prepare() noexcept
        -0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
         0.0f, 0.9f, 0.0f, 0.0f, 0.0f, 1.0f,
         0.0f,-0.9f, 0.0f, 0.0f, 0.0f, 1.0f,
-        0.0f, 0.0f, 2.9f, 1.0f, 1.0f, 0.0f,
-        0.0f, 0.0f,-2.9f, 1.0f, 1.0f, 0.0f
+        0.0f, 0.0f, 1.2f, 1.0f, 1.0f, 0.0f,
+        0.0f, 0.0f,-1.2f, 1.0f, 1.0f, 0.0f
     };
     ShaderController sc;
     shaderProgram = sc.allocateShaders(vertexShaderSource, fragmentShaderSource);

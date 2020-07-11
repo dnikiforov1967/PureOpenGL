@@ -9,6 +9,7 @@
 
 #include "shadercontroller.h"
 #include "coordinates.h"
+#include "modelbuilder.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -72,9 +73,15 @@ int main()
         return -1;
     }
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::rotate(model, glm::radians(40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    model = glm::rotate(model, glm::radians(-20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+    ModelBuilder modelBuilder;
+    modelBuilder.routeAroudX(-45.0f);
+    modelBuilder.routeAroudZ(-120.0f);
+    glm::mat4 model = modelBuilder.build();
+
+    //glm::mat4 model = glm::mat4(1.0f);
+    //model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    //model = glm::rotate(model, glm::radians(-120.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
     ShaderController sc;
     int shaderProgram2 = sc.allocateShaders(vertexShaderSource2, fragmentShaderSource);

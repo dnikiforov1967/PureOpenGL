@@ -7,11 +7,13 @@ SOURCES += main.cpp \
     glad.c \
     shadercontroller.cpp \
     coordinates.cpp \
-    baseshape.cpp
+    baseshape.cpp \
+    modelbuilder.cpp
 
 LIBS += -lGL -lglfw -ldl
 
 HEADERS += \
     shadercontroller.h \
     coordinates.h \
-    baseshape.h
+    baseshape.h \
+    modelbuilder.h
