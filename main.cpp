@@ -95,26 +95,6 @@ int main()
     Triangular tr(Point(0.5f, 0.0f, 0.0f), Point(0.0f, 0.5f, 0.0f), Point(0.0f, 0.0f, 0.5f), model);
     tr.prepare();
 
-    unsigned int vboFigure, VAO2;
-    ShaderController sc;
-    int shaderProgram2 = sc.allocateShaders(vertexShaderSource2, fragmentShaderSource);
-
-    int modelLoc2 = glGetUniformLocation(shaderProgram2, "model");
-    glUseProgram(shaderProgram2);
-    glUniformMatrix4fv(modelLoc2, 1, GL_FALSE, glm::value_ptr(model));
-
-    glGenVertexArrays(1, &VAO2);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(VAO2);
-    glGenBuffers(1, &vboFigure);
-    glBindBuffer(GL_ARRAY_BUFFER, vboFigure);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(line), line, GL_STATIC_DRAW);
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
-    glEnableVertexAttribArray(1);
 
         // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
         //glBindBuffer(GL_ARRAY_BUFFER, 0);
