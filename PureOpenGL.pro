@@ -8,7 +8,9 @@ SOURCES += main.cpp \
     shadercontroller.cpp \
     coordinates.cpp \
     baseshape.cpp \
-    modelbuilder.cpp
+    modelbuilder.cpp \
+    triangular.cpp \
+    point.cpp
 
 LIBS += -lGL -lglfw -ldl
 
@@ -16,4 +18,6 @@ HEADERS += \
     shadercontroller.h \
     coordinates.h \
     baseshape.h \
-    modelbuilder.h
+    modelbuilder.h \
+    triangular.h \
+    point.h
