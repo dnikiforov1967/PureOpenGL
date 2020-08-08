@@ -10,6 +10,7 @@
 #include "shadercontroller.h"
 #include "coordinates.h"
 #include "modelbuilder.h"
+#include "triangular.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -19,9 +20,9 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 float line[] = {
-    0.5f, 0.0f, 0.0f,
-    0.0f, 0.5f, 0.0f,
-    0.0f, 0.0f, 0.5f
+    0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 0.5f, 0.0f, 1.0f, 1.0f, 1.0f,
+    0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f
 };
 
 const char *vertexShaderSource2 = "#version 330 core\n"
@@ -84,18 +85,23 @@ int main()
     //model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     //model = glm::rotate(model, glm::radians(-120.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 
+
+
+
+
+    XYZAxes xyzAxes(model);
+    xyzAxes.prepare();
+
+    Triangular tr(Point(0.5f, 0.0f, 0.0f), Point(0.0f, 0.5f, 0.0f), Point(0.0f, 0.0f, 0.5f), model);
+    tr.prepare();
+
+    unsigned int vboFigure, VAO2;
     ShaderController sc;
     int shaderProgram2 = sc.allocateShaders(vertexShaderSource2, fragmentShaderSource);
 
     int modelLoc2 = glGetUniformLocation(shaderProgram2, "model");
     glUseProgram(shaderProgram2);
     glUniformMatrix4fv(modelLoc2, 1, GL_FALSE, glm::value_ptr(model));
-
-
-    unsigned int vboFigure, VAO2;
-
-    XYZAxes xyzAxes(model);
-    xyzAxes.prepare();
 
     glGenVertexArrays(1, &VAO2);
     // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
@@ -104,10 +110,11 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, vboFigure);
     glBufferData(GL_ARRAY_BUFFER, sizeof(line), line, GL_STATIC_DRAW);
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
+    // color attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+    glEnableVertexAttribArray(1);
 
         // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
         //glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -136,9 +143,11 @@ int main()
 
             xyzAxes.draw();
 
-            glBindVertexArray(VAO2);
+            tr.draw();
+
+            /*glBindVertexArray(VAO2);
             glUseProgram(shaderProgram2);
-            glDrawArrays(GL_LINE_LOOP, 0, 3);
+            glDrawArrays(GL_LINE_LOOP, 0, 3);*/
 
             // swap buffers and poll IO events
             glfwSwapBuffers(window);

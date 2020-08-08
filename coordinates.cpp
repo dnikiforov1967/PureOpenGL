@@ -7,7 +7,7 @@ XYZAxes::XYZAxes(glm::mat4 model) noexcept : BaseShape(model)
 
 void XYZAxes::prepare() noexcept
 {
-    float axes[36] = {
+    float axes[] = {
         // positions         // colors
         0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
        -0.9f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
